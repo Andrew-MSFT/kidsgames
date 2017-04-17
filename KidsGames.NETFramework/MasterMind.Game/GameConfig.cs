@@ -10,5 +10,6 @@ namespace MasterMind.Game
     {
         public const int BeginnerGamePieceCount = 3;
         public const int AdvancedGamePieceCount = 4;
+        public const int MaxNumberOfTurns = 10;
     }
 }
