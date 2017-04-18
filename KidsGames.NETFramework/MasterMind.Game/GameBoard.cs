@@ -24,6 +24,15 @@ namespace MasterMind.Game
             SetupGameTurns();
         }
 
+        public void SetCode(GamePieces[] secretCode)
+        {
+            if (secretCode.Length != NumberOfPieces)
+            {
+                throw new InvalidOperationException("Incorrect number of pieces in code");
+            }
+            this.SecretCode = secretCode;
+        }
+
         private void SetupGameTurns()
         {
             this.GameTurns = new GameTurn[GameConfig.MaxNumberOfTurns];

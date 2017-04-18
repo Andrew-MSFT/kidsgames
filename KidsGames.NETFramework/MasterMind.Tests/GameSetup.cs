@@ -29,6 +29,34 @@ namespace MasterMind.Tests
         }
 
         [TestMethod]
+        public void SetValidCode()
+        {
+            var gb = new GameBoard(GameLevels.Beginner);
+            var code = new GamePieces[] {GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 };
+            gb.SetCode(code);
+            for (int i = 0; i < code.Length; i++)
+            {
+                Assert.AreEqual(gb.SecretCode[i], code[i]);
+            }
+        }
+
+        [TestMethod]
+        public void SetInvalidCode()
+        {
+            var gb = new GameBoard(GameLevels.Beginner);
+            var code = new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3, GamePieces.Piece4 };
+            try
+            {
+                gb.SetCode(code);
+                Assert.Fail();
+            }
+            catch (InvalidOperationException)
+            {
+
+            }
+        }
+
+        [TestMethod]
         public void CreateAdvancedGame()
         {
             //var gb = new GameBoard(GameLevels.Advanced);
