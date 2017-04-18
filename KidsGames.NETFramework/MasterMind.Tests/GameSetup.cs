@@ -48,12 +48,13 @@ namespace MasterMind.Tests
             try
             {
                 gb.SetCode(code);
-                Assert.Fail();
+                
             }
             catch (InvalidOperationException)
             {
-
+                return;
             }
+            Assert.Fail();
         }
 
         [TestMethod]

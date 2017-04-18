@@ -26,10 +26,10 @@ namespace MasterMind.Game
 
         public void SetCode(GamePieces[] secretCode)
         {
-            if (secretCode.Length != NumberOfPieces)
-            {
-                throw new InvalidOperationException("Incorrect number of pieces in code");
-            }
+            //if (secretCode.Length != NumberOfPieces)
+            //{
+            //    throw new InvalidOperationException("Incorrect number of pieces in code");
+            //}
             this.SecretCode = secretCode;
         }
 
