@@ -15,16 +15,24 @@ namespace MasterMind.Tests
         }
 
         [TestMethod]
+        public void CreateAdvancedGame()
+        {
+            //var gb = new GameBoard(GameLevels.Advanced);
+            //Assert.AreEqual(gb.NumberOfPieces, GameConfig.AdvancedGamePieceCount);
+        }
+
+        [TestMethod]
         public void CheckInitialGameBoard()
         {
             var gb = new GameBoard(GameLevels.Beginner);
-            foreach(var turn in gb.GameTurns)
+            for (int i = 0; i < gb.MaxNumberOfTurns; i++)
             {
-                for (int i = 0; i < gb.NumberOfPieces; i++)
+                for (int j = 0; j < gb.NumberOfPieces; j++)
                 {
-                    Assert.AreEqual(turn.CodeBreakerGuesses[i], GamePieces.Empty);
-                    Assert.AreEqual(turn.GuessResults[i], GuessResult.Empty);
+                    Assert.AreEqual(gb.GameTurns[i].CodeBreakerGuesses[j], GamePieces.Empty);
+                    Assert.AreEqual(gb.GameTurns[i].GuessResults[j], GuessResult.Empty);
                 }
+                
             }
         }
 
@@ -57,11 +65,5 @@ namespace MasterMind.Tests
             Assert.Fail();
         }
 
-        [TestMethod]
-        public void CreateAdvancedGame()
-        {
-            //var gb = new GameBoard(GameLevels.Advanced);
-            //Assert.AreEqual(gb.NumberOfPieces, GameConfig.AdvancedGamePieceCount);
-        }
     }
 }

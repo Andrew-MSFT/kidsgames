@@ -12,30 +12,32 @@ namespace MasterMind.Game
     {
         private GameLevels gameLevel;
 
+        public int MaxNumberOfTurns { get { return GameConfig.MaxNumberOfTurns; } }
         public int NumberOfPieces { get; private set; }
         public GameTurn[] GameTurns { get; private set; }
         public GamePieces[] SecretCode { get; private set; }
+
         
 
         public GameBoard(GameLevels gameLevel)
         {
             this.gameLevel = gameLevel;
             setNumberOfPieces();
-            SetupGameTurns();
+            //InitializeTurns(GameConfig.MaxNumberOfTurns);
         }
 
         public void SetCode(GamePieces[] secretCode)
         {
-            //if (secretCode.Length != NumberOfPieces)
-            //{
-            //    throw new InvalidOperationException("Incorrect number of pieces in code");
-            //}
+            if (secretCode.Length != NumberOfPieces)
+            {
+                throw new InvalidOperationException("Incorrect number of pieces in code");
+            }
             this.SecretCode = secretCode;
         }
 
-        private void SetupGameTurns()
+        private void InitializeTurns(int maxNumberOfTurns)
         {
-            this.GameTurns = new GameTurn[GameConfig.MaxNumberOfTurns];
+            this.GameTurns = new GameTurn[maxNumberOfTurns];
             for (int i = 0; i < GameTurns.Length; i++)
             {
                 this.GameTurns[i] = new GameTurn(this.NumberOfPieces);
