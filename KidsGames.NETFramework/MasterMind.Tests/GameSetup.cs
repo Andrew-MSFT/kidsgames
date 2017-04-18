@@ -31,7 +31,7 @@ namespace MasterMind.Tests
         [TestMethod]
         public void SetValidCode()
         {
-            var gb = new GameBoard(GameLevels.Beginner);
+            GameBoard gb = new GameBoard(GameLevels.Beginner);
             var code = new GamePieces[] {GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 };
             gb.SetCode(code);
             for (int i = 0; i < code.Length; i++)
