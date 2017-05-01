@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MasterMind.Logic\Mastermind.Logic.csproj" />
+      <ProjectReference Include="..\Mastermind.Logic\Mastermind.Logic.csproj" />
     </ItemGroup>
 
 </Project>

@@ -4,13 +4,13 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KidsGames", "src\KidsGames\KidsGames.csproj", "{1992C36A-E947-4909-9D26-FB9552563AA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterMind.Logic", "src\MasterMind\MasterMind.Logic\MasterMind.Logic.csproj", "{F8BB8E1B-1D53-41A7-B89C-7791790086EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mastermind.Logic", "src\Mastermind\Mastermind.Logic\Mastermind.Logic.csproj", "{F8BB8E1B-1D53-41A7-B89C-7791790086EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterMind.Tests", "test\MasterMind.Tests\MasterMind.Tests.csproj", "{BC8043F8-D94B-4CB0-AA1B-9543FB7CBCD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mastermind.Tests", "test\Mastermind.Tests\Mastermind.Tests.csproj", "{BC8043F8-D94B-4CB0-AA1B-9543FB7CBCD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39EDFA67-70EC-4737-9D38-1C0C6C1B6C47}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MasterMind", "MasterMind", "{583AABD4-D1BA-4326-B680-802016F16CF6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mastermind", "Mastermind", "{583AABD4-D1BA-4326-B680-802016F16CF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2382690D-AB61-49B6-A2FE-2400CFCC17D8}"
 EndProject
