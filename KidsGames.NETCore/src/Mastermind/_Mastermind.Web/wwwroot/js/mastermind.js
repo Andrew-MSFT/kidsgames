@@ -11,7 +11,38 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("id").split(':');
     var newVal = Math.floor(data[1]);
     var id = ev.target.id.split(':');
-    viewModel.turns()[id[0]].items()[id[1]].value(newVal);
+
+    if (id[0] === "board") {
+        viewModel.turns()[id[1]].items()[id[2]].value(newVal);
+    }
+    else if (id[0] === "code") {
+        viewModel.secretCode()[id[1]].value(newVal);
+    }
+}
+
+function setCodeSuccess(data) {
+    var a = 0;
+}
+
+function setCode() {
+    var data = new Array();
+    for (var i = 0; i < viewModel.secretCode().length; i++) {
+        var val = viewModel.secretCode()[i].value();
+        data.push("Piece" + val);
+    }
+    var object = {
+        codes: data
+    };
+    var postData = JSON.stringify(object);
+    //$.post("Home/SetSecretCode", postData, setCodeSuccess, "application/json");
+    $.ajax({
+        type: "POST",
+        url: "Home/SetSecretCode",
+        data: postData,
+        success: setCodeSuccess,
+        dataType: "json",
+        contentType: "application/json"
+    });
 }
 
 function ViewModelItem(value, id) {
@@ -36,7 +67,7 @@ function ViewModelRow(row, cols) {
     this.items = ko.observableArray();
 
     for (var col = 0; col < cols; col++) {
-        this.items.push(new ViewModelItem(0, row + ":" + col));
+        this.items.push(new ViewModelItem(0, "board:" + row + ":" + col));
     }
 }
 
@@ -47,7 +78,7 @@ function AppViewModel() {
 
     this.secretCode = ko.observableArray();
     for (var col = 0; col < cols; col++) {
-        this.secretCode.push(new ViewModelItem(0, "code:" + row + ":" + col));
+        this.secretCode.push(new ViewModelItem(0, "code:" + col));
     }
 
     this.turns = ko.observableArray();

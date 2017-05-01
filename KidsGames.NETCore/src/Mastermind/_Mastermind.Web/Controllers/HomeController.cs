@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using MasterMind.Logic;
+using System.Net.Http;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Mastermind.Web
 {
@@ -20,6 +24,23 @@ namespace Mastermind.Web
             return View();
         }
 
+        [HttpPost]
+        public HttpResponseMessage SetSecretCode([FromBody] DataContainer data)
+        {
+            //var req = HttpContext.Request;
+            //var read = new StreamReader(req.Body);
+            //var body = read.ReadToEnd();
+            //var d = JsonConvert.DeserializeObject<DataContainer>(body);
+            var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            return response;
+        }
+
+        public JsonResult Test()
+        {
+            var json = this.Json(new DataContainer());
+            return json;
+        }
+
         public IActionResult About()
         {
             // Creates a model and passes it on to the view.
@@ -31,5 +52,10 @@ namespace Mastermind.Web
 
             return View(model);
         }
+    }
+
+    public class DataContainer
+    {
+        public List<GamePieces> Codes { get; set; }
     }
 }
