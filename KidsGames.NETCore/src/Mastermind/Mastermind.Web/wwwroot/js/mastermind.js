@@ -1,9 +1,10 @@
 ﻿var sessionInfo;
 var currentGuessNum;
 
-function config() {
-    this.difficultyLevel = "Beginner";
-}
+var config = {
+    difficultyLevel: "Beginner",
+    NumberOfGamePieces: 3
+};
 
 
 function allowDrop(ev) {
@@ -30,10 +31,6 @@ function drop(ev) {
     }
 }
 
-function setCodeSuccess(data) {
-    viewModel.codeSetMessage("Code successfully set");
-}
-
 function setCode() {
     var secretCode = new Array();
     for (var i = 0; i < viewModel.secretCode().length; i++) {
@@ -52,25 +49,19 @@ function setCode() {
         type: "POST",
         url: "Home/SetSecretCode",
         data: postData,
-        success: setCodeSuccess,
         dataType: "json",
-        contentType: "application/json"
+        contentType: "application/json",
+        success: function (data) {
+            viewModel.codeSetMessage("Code successfully set");
+        }
     });
 }
 
-function getNumberOfGamePieces() {
-    return 3;
-}
 
-function guessResult(data) {
-    for (var i = 0; i < getNumberOfGamePieces(); i++) {
-        viewModel.results()[currentGuessNum].items()[i].value(data[i]);
-    }
-}
 
 function makeGuess() {
     var guessedPieces = new Array();
-    for (var i = 0; i < getNumberOfGamePieces(); i++) {
+    for (var i = 0; i < config.NumberOfGamePieces; i++) {
         guessedPieces.push(viewModel.guesses()[currentGuessNum].items()[i].value());
     }
 
@@ -83,19 +74,38 @@ function makeGuess() {
         type: "POST",
         url: "Home/MakeGuess",
         data: postData,
-        success: guessResult,
         dataType: "json",
-        contentType: "application/json"
+        contentType: "application/json",
+        success: function (data) {
+            for (var i = 0; i < config.NumberOfGamePieces; i++) {
+                viewModel.results()[currentGuessNum].items()[i].value(data[i]);
+            }
+        }
     });
 }
 
-function getGameInfoCompleted(data) {
-    sessionInfo = data;
-    viewModel.role(data.role);
+function createNewGame() {
+    $.ajax({
+        type: "POST",
+        url: "Home/CreateNewGame",
+        data: config.difficultyLevel,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data) {
+            sessionInfo = data;
+            viewModel.games.push(new GameVMItem(data.id, "Game " + viewModel.games.length));
+        }
+    });
+}
+
+function getGames(data) {
+    for (var i = 0; i < data.length; i++) {
+        viewModel.games.push(new GameVMItem(data[i], "Game " + i));
+    }
 }
 
 // Activates knockout.js
 var viewModel = new AppViewModel();
 ko.applyBindings(viewModel);
 
-$.get("Home/GetGameInfo", getGameInfoCompleted);
+$.get("Home/GetGames", getGames);

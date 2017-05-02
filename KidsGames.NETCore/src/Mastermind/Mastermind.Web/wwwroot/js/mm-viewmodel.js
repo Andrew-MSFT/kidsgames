@@ -5,6 +5,14 @@
     Code: 4
 };
 
+function GameVMItem(id, name) {
+    this.id = id;
+    this.name = ko.observable(name);
+    this.clicked = function () {
+        alert("clicked " + this.id);
+    }
+}
+
 function ViewModelItem(value, id, purpose) {
     var self = this;
     this.purpose = purpose;
@@ -70,6 +78,8 @@ function AppViewModel() {
     this.piecePalette = [new ViewModelItem(1, "palette:1"),
     new ViewModelItem(2, "palette:2"),
     new ViewModelItem(3, "palette:3")];
+
+    this.games = ko.observableArray();
 
     this.role = ko.observable(0);
     this.playerRole = ko.computed(function () {

@@ -14,6 +14,7 @@ namespace MasterMind.Logic
     {
         private DifficultyLevels gameLevel;
 
+        public Guid GameId { get; private set; }
         public int NumberOfPieces { get; private set; }
         public List<GamePieces[]> CodeBreakerGuesses { get; private set; }
         public List<GuessResult[]> GuessResults { get; private set; }
@@ -23,6 +24,7 @@ namespace MasterMind.Logic
 
         public GameBoard(DifficultyLevels difficulty)
         {
+            this.GameId = Guid.NewGuid();
             this.gameLevel = difficulty;
             this.NumberOfPieces = GameConfig.GetPieceCount(difficulty);
             this.CodeBreakerGuesses = new List<GamePieces[]>();

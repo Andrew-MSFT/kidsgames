@@ -12,93 +12,105 @@
 <link rel="stylesheet" href="~/css/bootstrap-grid.css" />
 <script type='text/javascript' src='~/js/knockout-min.js'></script>
 
-<div class="row">
-    <div class="@SetCodeColClass">
-        <div>Role: <span data-bind="text: playerRole"></span></div>
+<div class="container">
+    <div data-bind="foreach: games" class="container">
+        <div class="row">
+            <button data-bind="click: clicked"><span data-bind="text: name"></span></button>
+        </div>
     </div>
-    <div class="@GuessCodeColClass">
-        Make Guesses
-    </div>
-    @*<div class="@SpacerColClass"></div>*@
-    <div class="@GuessResultColClass">
-        Guess Results
+    <div class="row">
+        <button onclick="createNewGame()">New Game</button>
     </div>
 </div>
 
-<div class="row">
-    <div class="@SetCodeColClass">
-        <table>
-            <tbody>
-                <tr data-bind="foreach: piecePalette">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="@GuessCodeColClass">
-        <table>
-            <tbody>
-                <tr data-bind="foreach: piecePalette">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    @*<div class="@SpacerColClass"></div>*@
-    <div class="@GuessResultColClass">
-        
-    </div>
-</div>
-
-<div class="row">
-    <div class="@SetCodeColClass">
-        <table>
-            <tbody>
-                <tr data-bind="foreach: secretCode">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <span data-bind="text: codeSetMessage"></span>
-        <p>
-            <button onclick="setCode()">Set Code</button>
-        </p>
+<div class="container">
+    <div class="row">
+        <div class="@SetCodeColClass">
+            <div>Role: <span data-bind="text: playerRole"></span></div>
+        </div>
+        <div class="@GuessCodeColClass">
+            Make Guesses
+        </div>
+        @*<div class="@SpacerColClass"></div>*@
+        <div class="@GuessResultColClass">
+            Guess Results
+        </div>
     </div>
 
-    <div class="@GuessCodeColClass">
-        <table>
-            <tbody data-bind="foreach: guesses">
-                <tr data-bind="foreach: items, as: 'item'">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            <button onclick="makeGuess()">Make Guess</button>
-        </p>
+    <div class="row">
+        <div class="@SetCodeColClass">
+            <table>
+                <tbody>
+                    <tr data-bind="foreach: piecePalette">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="@GuessCodeColClass">
+            <table>
+                <tbody>
+                    <tr data-bind="foreach: piecePalette">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*<div class="@SpacerColClass"></div>*@
+        <div class="@GuessResultColClass">
+
+        </div>
     </div>
-    @*<div class="@SpacerColClass"></div>*@
-    <div class="@GuessResultColClass">
-        <table>
-            <tbody data-bind="foreach: results">
-                <tr data-bind="foreach: items, as: 'item'">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="row">
+        <div class="@SetCodeColClass">
+            <table>
+                <tbody>
+                    <tr data-bind="foreach: secretCode">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span data-bind="text: codeSetMessage"></span>
+            <p>
+                <button onclick="setCode()">Set Code</button>
+            </p>
+        </div>
+
+        <div class="@GuessCodeColClass">
+            <table>
+                <tbody data-bind="foreach: guesses">
+                    <tr data-bind="foreach: items, as: 'item'">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <button onclick="makeGuess()">Make Guess</button>
+            </p>
+        </div>
+        @*<div class="@SpacerColClass"></div>*@
+        <div class="@GuessResultColClass">
+            <table>
+                <tbody data-bind="foreach: results">
+                    <tr data-bind="foreach: items, as: 'item'">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-@*</div>*@
 
 @section Scripts {
     @*Insert any script tags for this page here*@
