@@ -1,4 +1,6 @@
 ﻿var sessionInfo;
+var currentGuessNum;
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -15,6 +17,7 @@ function drop(ev) {
     var id = ev.target.id.split(':');
 
     if (id[0] === "board") {
+        currentGuessNum = Math.floor(id[1]);
         viewModel.turns()[id[1]].items()[id[2]].value(newVal);
     }
     else if (id[0] === "code") {
@@ -23,7 +26,7 @@ function drop(ev) {
 }
 
 function setCodeSuccess(data) {
-    var a = 0;
+    viewModel.codeSetMessage("Code successfully set");
 }
 
 function setCode() {
@@ -48,6 +51,31 @@ function setCode() {
     $.ajax({
         type: "POST",
         url: "Home/SetSecretCode",
+        data: postData,
+        success: setCodeSuccess,
+        dataType: "json",
+        contentType: "application/json"
+    });
+}
+
+function getNumberOfGamePieces() {
+    return 3;
+}
+
+function makeGuess() {
+    var guessedPieces = new Array();
+    for (var i = 0; i < getNumberOfGamePieces(); i++) {
+        guessedPieces.push(viewModel.turns()[currentGuessNum].items()[i].value());
+    }
+
+    var postData = JSON.stringify({
+        guess: guessedPieces,
+        sessionInfo: sessionInfo
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "Home/MakeGuess",
         data: postData,
         success: setCodeSuccess,
         dataType: "json",

@@ -51,8 +51,15 @@ namespace Mastermind.Web
         {
             var game = new GameBoard(container.DifficultyLevel);
             game.SetCode(container.Code);
+            m_games.Add(container.SessionInfo.SessionId, game);
             var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             return response;
+        }
+
+        public JsonResult MakeGuess([FromBody] GuessContainer guess)
+        {
+            var json = this.Json(guess.SessionInfo);
+            return json;
         }
 
     }
@@ -61,6 +68,12 @@ namespace Mastermind.Web
     {
         public DifficultyLevels DifficultyLevel { get; set; }
         public List<GamePieces> Code { get; set; }
+        public GameSession SessionInfo { get; set; }
+    }
+
+    public class GuessContainer
+    {
+        public List<GamePieces> Guess { get; set; }
         public GameSession SessionInfo { get; set; }
     }
 

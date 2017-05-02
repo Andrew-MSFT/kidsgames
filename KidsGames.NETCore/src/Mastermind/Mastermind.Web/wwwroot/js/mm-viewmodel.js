@@ -45,13 +45,15 @@ function AppViewModel() {
 
     this.role = ko.observable(0);
     this.playerRole = ko.computed(function () {
-        if (this.role() == 0) {
+        if (this.role() === 0) {
             return "Code Setter";
         }
         else {
             return "Code Breaker";
         }
     }, this);
+
+    this.codeSetMessage = ko.observable("");
 }
 
 ko.bindingHandlers.id = {
