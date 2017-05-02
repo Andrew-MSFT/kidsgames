@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Mastermind";
     ViewData["Description"] = "The home page of my website";
+    string SetCodeColClass = "col-md-2";
+    string GuessCodeColClass = SetCodeColClass;
+    string SpacerColClass = "col-md-1";
+    string GuessResultColClass = SetCodeColClass;
 }
 
 <link rel="stylesheet" href="~/css/styles.css" />
@@ -8,11 +12,21 @@
 <link rel="stylesheet" href="~/css/bootstrap-grid.css" />
 <script type='text/javascript' src='~/js/knockout-min.js'></script>
 
-@*<div class="container">*@
-<div>Role: <span data-bind="text: playerRole"></span></div>
+<div class="row">
+    <div class="@SetCodeColClass">
+        <div>Role: <span data-bind="text: playerRole"></span></div>
+    </div>
+    <div class="@GuessCodeColClass">
+        Make Guesses
+    </div>
+    @*<div class="@SpacerColClass"></div>*@
+    <div class="@GuessResultColClass">
+        Guess Results
+    </div>
+</div>
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="@SetCodeColClass">
         <table>
             <tbody>
                 <tr data-bind="foreach: piecePalette">
@@ -22,54 +36,66 @@
                 </tr>
             </tbody>
         </table>
-        <p>
-            <table>
-                <tbody>
-                    <tr data-bind="foreach: secretCode">
-                        <td>
-                            <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <span data-bind="text: codeSetMessage"></span>
-        </p>
+    </div>
+    <div class="@GuessCodeColClass">
+        <table>
+            <tbody>
+                <tr data-bind="foreach: piecePalette">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @*<div class="@SpacerColClass"></div>*@
+    <div class="@GuessResultColClass">
+        
+    </div>
+</div>
+
+<div class="row">
+    <div class="@SetCodeColClass">
+        <table>
+            <tbody>
+                <tr data-bind="foreach: secretCode">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <span data-bind="text: codeSetMessage"></span>
         <p>
             <button onclick="setCode()">Set Code</button>
         </p>
     </div>
 
-    <div class="col-md-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <table>
-                        <tbody data-bind="foreach: guesses">
-                            <tr data-bind="foreach: items, as: 'item'">
-                                <td>
-                                    <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>
-                        <button onclick="makeGuess()">Make Guess</button>
-                    </p>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <table>
-                        <tbody data-bind="foreach: results">
-                            <tr data-bind="foreach: items, as: 'item'">
-                                <td>
-                                    <div data-bind="css: displayedPiece, id: id"></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="@GuessCodeColClass">
+        <table>
+            <tbody data-bind="foreach: guesses">
+                <tr data-bind="foreach: items, as: 'item'">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <button onclick="makeGuess()">Make Guess</button>
+        </p>
+    </div>
+    @*<div class="@SpacerColClass"></div>*@
+    <div class="@GuessResultColClass">
+        <table>
+            <tbody data-bind="foreach: results">
+                <tr data-bind="foreach: items, as: 'item'">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 @*</div>*@
