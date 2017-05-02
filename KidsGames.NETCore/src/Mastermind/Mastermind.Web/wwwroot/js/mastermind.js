@@ -1,4 +1,4 @@
-﻿var sessionInfo;
+﻿var sessionInfo = null;
 var currentGuessNum;
 
 var config = {
@@ -94,6 +94,7 @@ function createNewGame() {
         success: function (data) {
             sessionInfo = data;
             viewModel.games.push(new GameVMItem(data.id, "Game " + viewModel.games.length));
+            viewModel.gameInitialized(true);
         }
     });
 }

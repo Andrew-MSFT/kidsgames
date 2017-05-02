@@ -8,8 +8,8 @@
 function GameVMItem(id, name) {
     this.id = id;
     this.name = ko.observable(name);
-    this.clicked = function () {
-        alert("clicked " + this.id);
+    this.clicked = function (data) {
+        
     }
 }
 
@@ -92,6 +92,7 @@ function AppViewModel() {
     }, this);
 
     this.codeSetMessage = ko.observable("");
+    this.gameInitialized = ko.observable(false);
 }
 
 ko.bindingHandlers.id = {
