@@ -17,7 +17,7 @@ namespace MasterMind.Logic
         public int NumberOfPieces { get; private set; }
         public List<GamePieces[]> CodeBreakerGuesses { get; private set; }
         public List<GuessResult[]> GuessResults { get; private set; }
-        public GamePieces[] SecretCode { get; private set; }
+        public List<GamePieces> SecretCode { get; private set; }
         private int m_currentTurn = 0;
 
 
@@ -29,9 +29,9 @@ namespace MasterMind.Logic
             this.GuessResults = new List<GuessResult[]>();
         }
 
-        public void SetCode(GamePieces[] secretCode)
+        public void SetCode(List<GamePieces> secretCode)
         {
-            if (secretCode.Length != NumberOfPieces)
+            if (secretCode.Count != NumberOfPieces)
             {
                 throw new InvalidOperationException("Incorrect number of pieces in code");
             }

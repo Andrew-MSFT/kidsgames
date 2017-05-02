@@ -30,7 +30,7 @@ function setCode() {
     var secretCode = new Array();
     for (var i = 0; i < viewModel.secretCode().length; i++) {
         var val = viewModel.secretCode()[i].value();
-        if (val == 0) {
+        if (val === 0) {
             secretCode.push("Empty");
         }
         else {
@@ -38,7 +38,11 @@ function setCode() {
         }
     }
 
-    var postData = JSON.stringify({ difficultyLevel: "Beginner", code: secretCode });
+    var postData = JSON.stringify({
+        difficultyLevel: "Beginner",
+        code: secretCode,
+        sessionInfo: sessionInfo
+    });
 
     //$.post("Home/SetSecretCode", postData, setCodeSuccess, "application/json");
     $.ajax({

@@ -1,7 +1,7 @@
 ﻿using System;
 using MasterMind.Logic;
 using Xunit;
-
+using System.Collections.Generic;
 
 namespace MasterMind.Tests
 {
@@ -32,9 +32,9 @@ namespace MasterMind.Tests
         public void SetValidCode()
         {
             GameBoard gb = new GameBoard(DifficultyLevels.Beginner);
-            var code = new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 };
+            var code = new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 };
             gb.SetCode(code);
-            for (int i = 0; i < code.Length; i++)
+            for (int i = 0; i < code.Count; i++)
             {
                 Assert.Equal(gb.SecretCode[i], code[i]);
             }
@@ -44,7 +44,7 @@ namespace MasterMind.Tests
         public void SetInvalidCode()
         {
             var gb = new GameBoard(DifficultyLevels.Beginner);
-            var code = new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3, GamePieces.Piece4 };
+            var code = new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3, GamePieces.Piece4 };
             try
             {
                 gb.SetCode(code);
@@ -68,7 +68,7 @@ namespace MasterMind.Tests
         public void GuessCorrect()
         {
             var gb = new GameBoard(DifficultyLevels.Beginner);
-            gb.SetCode(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
+            gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             foreach (var r in result)
             {
@@ -80,7 +80,7 @@ namespace MasterMind.Tests
         public void GuessIncorrectLocations()
         {
             var gb = new GameBoard(DifficultyLevels.Beginner);
-            gb.SetCode(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
+            gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new GamePieces[] { GamePieces.Piece2, GamePieces.Piece3, GamePieces.Piece1 });
             foreach (var r in result)
             {
@@ -92,7 +92,7 @@ namespace MasterMind.Tests
         public void GuessIncorrect()
         {
             var gb = new GameBoard(DifficultyLevels.Beginner);
-            gb.SetCode(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
+            gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new GamePieces[] { GamePieces.Piece4, GamePieces.Piece4, GamePieces.Piece4 });
             foreach (var r in result)
             {
@@ -104,7 +104,7 @@ namespace MasterMind.Tests
         public void GuessPartiallyCorrect()
         {
             var gb = new GameBoard(DifficultyLevels.Beginner);
-            gb.SetCode(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
+            gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new GamePieces[] { GamePieces.Piece1, GamePieces.Piece3, GamePieces.Piece4 });
 
             Assert.Equal(GuessResult.Correct, result[0]);

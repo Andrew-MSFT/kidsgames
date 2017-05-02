@@ -17,7 +17,7 @@ namespace Mastermind.Web
     public class HomeController : Controller
     {
         static string m_pendingGame = null;
-        static Dictionary<Guid, GameBoard> m_games = new Dictionary<Guid, GameBoard>();
+        static Dictionary<string, GameBoard> m_games = new Dictionary<string, GameBoard>();
 
         public IActionResult Index()
         {
@@ -42,13 +42,15 @@ namespace Mastermind.Web
                 m_pendingGame = null;
             }
 
-            var json = this.Json(new NewGameContainer(gameId, role));
+            var json = this.Json(new GameSession(gameId, role));
             return json;
         }
 
         [HttpPost]
         public HttpResponseMessage SetSecretCode([FromBody] SetCodeContainer container)
         {
+            var game = new GameBoard(container.DifficultyLevel);
+            game.SetCode(container.Code);
             var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             return response;
         }
@@ -59,14 +61,15 @@ namespace Mastermind.Web
     {
         public DifficultyLevels DifficultyLevel { get; set; }
         public List<GamePieces> Code { get; set; }
+        public GameSession SessionInfo { get; set; }
     }
 
-    public class NewGameContainer
+    public class GameSession
     {
         public string SessionId { get; set; }
         public PlayerRole Role { get; set; }
 
-        public NewGameContainer(string id, PlayerRole role)
+        public GameSession(string id, PlayerRole role)
         {
             this.SessionId = id;
             this.Role = role;
