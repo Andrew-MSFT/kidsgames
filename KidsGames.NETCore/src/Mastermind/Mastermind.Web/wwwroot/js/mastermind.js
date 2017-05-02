@@ -57,7 +57,25 @@ function setCode() {
     });
 }
 
+function joinExistingGame(gameId) {
+    var data = JSON.stringify({
+        sessionId: gameId,
+        role: 1
+    });
 
+    $.ajax({
+        type: "POST",
+        url: "Home/JoinGame",
+        data: data,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data) {
+            sessionInfo = data;
+            viewModel.gameInitialized(true);
+            viewModel.role(sessionInfo.role);
+        }
+    });
+}
 
 function makeGuess() {
     var guessedPieces = new Array();

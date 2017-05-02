@@ -17,7 +17,8 @@ namespace Mastermind.Web
     public class HomeController : Controller
     {
         //static string m_pendingGame = null;
-        static Dictionary<Guid, GameBoard> m_games = new Dictionary<Guid, GameBoard>() { /*{ Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner)}, { Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner) }*/ };
+        static Dictionary<Guid, GameBoard> m_openGames = new Dictionary<Guid, GameBoard>() { /*{ Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner)}, { Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner) }*/ };
+        static Dictionary<Guid, GameBoard> m_existingGames = new Dictionary<Guid, GameBoard>();
 
         public IActionResult Index()
         {
@@ -26,23 +27,8 @@ namespace Mastermind.Web
 
         public JsonResult GetGames()
         {
-            //PlayerRole role;
-            //string gameId;
-
-            //if (m_pendingGame == null)
-            //{
-            //    m_pendingGame = Guid.NewGuid().ToString();
-            //    gameId = m_pendingGame;
-            //    role = PlayerRole.CodeSetter;
-            //}
-            //else
-            //{
-            //    role = PlayerRole.CodeBreaker;
-            //    gameId = m_pendingGame;
-            //    m_pendingGame = null;
-            //}
             var games = new List<Guid>();
-            foreach(var gameId in m_games.Keys)
+            foreach(var gameId in m_openGames.Keys)
             {
                 games.Add(gameId);
             }
@@ -55,15 +41,36 @@ namespace Mastermind.Web
         public JsonResult CreateNewGame([FromBody] DifficultyLevels difficulty)
         {
             var newGame = new GameBoard(difficulty);
-            m_games.Add(newGame.GameId, newGame);
+            m_openGames.Add(newGame.GameId, newGame);
             var json = this.Json(new GameSession(newGame.GameId, PlayerRole.CodeSetter));
+            return json;
+        }
+
+        [HttpPost]
+        public JsonResult JoinGame([FromBody] GameSession session)
+        {
+            var id = session.SessionId;
+            var game = m_openGames[id];
+            m_openGames.Remove(id);
+            m_existingGames.Add(id, game);
+            session.Role = PlayerRole.CodeBreaker;
+            var json = this.Json(session);
             return json;
         }
 
         [HttpPost]
         public HttpResponseMessage SetSecretCode([FromBody] SetCodeContainer container)
         {
-            var game = m_games[container.SessionInfo.SessionId];
+            GameBoard game;
+            if (m_openGames.ContainsKey(container.SessionInfo.SessionId))
+            {
+                game = m_openGames[container.SessionInfo.SessionId];
+            }
+            else
+            {
+                game = m_existingGames[container.SessionInfo.SessionId];
+            }
+
             game.SetCode(container.Code);
 
             var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
@@ -72,7 +79,7 @@ namespace Mastermind.Web
 
         public JsonResult MakeGuess([FromBody] GuessContainer guess)
         {
-            var game = m_games[guess.SessionInfo.SessionId];
+            var game = m_existingGames[guess.SessionInfo.SessionId];
             var result = game.MakeGuess(guess.Guess);
             var json = this.Json(result);
             return json;

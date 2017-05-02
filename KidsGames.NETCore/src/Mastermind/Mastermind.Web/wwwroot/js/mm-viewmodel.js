@@ -8,8 +8,8 @@
 function GameVMItem(id, name) {
     this.id = id;
     this.name = ko.observable(name);
-    this.clicked = function (data) {
-        
+    this.clicked = function () {
+        joinExistingGame(this.id);
     }
 }
 
