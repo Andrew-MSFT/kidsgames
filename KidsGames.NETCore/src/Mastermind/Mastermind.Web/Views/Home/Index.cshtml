@@ -38,7 +38,7 @@
     </div>
 
     <div class="row">
-        <div class="@SetCodeColClass">
+        <div class="@SetCodeColClass" data-bind="style: {visibility: isCodeCreator() ? 'visible' : 'collapse'}">
             <table>
                 <tbody>
                     <tr data-bind="foreach: piecePalette">
@@ -49,7 +49,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="@GuessCodeColClass">
+        <div class="@GuessCodeColClass" data-bind="style: {visibility: isCodeBreaker() ? 'visible' : 'collapse'}">
             <table>
                 <tbody>
                     <tr data-bind="foreach: piecePalette">
@@ -67,7 +67,7 @@
     </div>
 
     <div class="row">
-        <div class="@SetCodeColClass">
+        <div class="@SetCodeColClass" data-bind="style: {visibility: isCodeCreator() ? 'visible' : 'collapse'}">
             <table>
                 <tbody>
                     <tr data-bind="foreach: secretCode">

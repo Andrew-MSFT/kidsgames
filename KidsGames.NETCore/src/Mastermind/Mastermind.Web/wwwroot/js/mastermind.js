@@ -113,6 +113,7 @@ function createNewGame() {
             sessionInfo = data;
             viewModel.games.push(new GameVMItem(data.id, "Game " + viewModel.games.length));
             viewModel.gameInitialized(true);
+            viewModel.role(data.role);
         }
     });
 }
