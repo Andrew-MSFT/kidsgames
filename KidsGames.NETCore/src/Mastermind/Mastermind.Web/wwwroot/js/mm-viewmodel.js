@@ -1,26 +1,49 @@
-﻿function ViewModelItem(value, id) {
+﻿var PiecePurpose = {
+    Board: 1,
+    Palette: 2,
+    Result: 3,
+    Code: 4
+};
+
+function ViewModelItem(value, id, purpose) {
     var self = this;
+    this.purpose = purpose;
     this.value = ko.observable(value);
     this.id = id;
     this.displayedPiece = ko.computed(function () {
-        switch (this.value()) {
-            case 1:
-                return "piece1";
-            case 2:
-                return "piece2";
-            case 3:
-                return "circle";
-            default:
-                return "empty";
+         if (this.purpose === PiecePurpose.Result) {
+            //public enum GuessResult { Empty, Incorrect, CorrectButWrongLocation, Correct }
+            switch (this.value()) {
+                case 1:
+                    return "incorrect-result";
+                case 2:
+                    return "partially-correct-result";
+                case 3:
+                    return "correct-result";
+                default:
+                    return "empty";
+            }
+        }
+        else {
+            switch (this.value()) {
+                case 1:
+                    return "piece1";
+                case 2:
+                    return "piece2";
+                case 3:
+                    return "circle";
+                default:
+                    return "empty";
+            }
         }
     }, this);
 }
 
-function ViewModelRow(row, cols) {
+function ViewModelRow(row, cols, purpose) {
     this.items = ko.observableArray();
 
     for (var col = 0; col < cols; col++) {
-        this.items.push(new ViewModelItem(0, "board:" + row + ":" + col));
+        this.items.push(new ViewModelItem(0, purpose + ":" + row + ":" + col, purpose));
     }
 }
 
@@ -31,12 +54,17 @@ function AppViewModel() {
 
     this.secretCode = ko.observableArray();
     for (var col = 0; col < cols; col++) {
-        this.secretCode.push(new ViewModelItem(0, "code:" + col));
+        this.secretCode.push(new ViewModelItem(0, PiecePurpose.Code + ":" + col, PiecePurpose.Palette));
     }
 
-    this.turns = ko.observableArray();
+    this.guesses = ko.observableArray();
     for (var row = 0; row < rows; row++) {
-        this.turns.push(new ViewModelRow(row, cols));
+        this.guesses.push(new ViewModelRow(row, cols, PiecePurpose.Board));
+    }
+
+    this.results = ko.observableArray();
+    for (var row = 0; row < rows; row++) {
+        this.results.push(new ViewModelRow(row, cols, PiecePurpose.Result));
     }
 
     this.piecePalette = [new ViewModelItem(1, "palette:1"),

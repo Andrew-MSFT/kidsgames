@@ -1,11 +1,25 @@
-﻿div.empty {
+﻿div.baseCircle, div.empty, div.incorrect-result, div.partially-correct-result, div.correct-result {
   border-radius: 12px;
   height: 20px;
   width: 20px;
   border-style: solid;
+  border-width: 2px; }
+
+div.empty {
   border-color: gray;
-  border-width: 2px;
   background-color: transparent; }
+
+div.incorrect-result {
+  border-color: red;
+  background-color: red; }
+
+div.partially-correct-result {
+  border-color: yellow;
+  background-color: yellow; }
+
+div.correct-result {
+  border-color: green;
+  background-color: green; }
 
 div.piece1 {
   height: 16px;
@@ -18,16 +32,16 @@ div.piece1 {
 div.piece2 {
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 18px solid black; }
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 16px solid green; }
 
 div.circle {
   border-radius: 12px;
   height: 20px;
   width: 20px;
   border-style: solid;
-  border-color: green;
+  border-color: black;
   border-width: 2px;
-  background-color: green; }
+  background-color: black; }
 

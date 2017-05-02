@@ -6,20 +6,46 @@ $emptyOutlineWidth: 2px;
 
 $squareSize: 16px;
 
-$triangleWidth: 10px;
-$triangleHeight: 18px;
-$triangleColor: black;
+$triangleWidth: 11px;
+$triangleHeight: 16px;
+$triangleColor: green;
 
-$circlePieceColor: green;
+$circlePieceColor: black;
 
-div.empty {
+$incorrectGuessColor: red;
+$partiallyCorrectGuessColor: yellow;
+$correctGuessColor: green;
+
+div.baseCircle {
     border-radius: $radius;
     height: $emptySize;
     width: $emptySize;
     border-style: solid;
-    border-color: $emptyOutline;
     border-width: $emptyOutlineWidth;
+}
+
+div.empty {
+    @extend div.baseCircle;
+    border-color: $emptyOutline;
     background-color: $emptyFill;
+}
+
+div.incorrect-result {
+    @extend div.baseCircle;
+    border-color: $incorrectGuessColor;
+    background-color: $incorrectGuessColor;
+}
+
+div.partially-correct-result {
+    @extend div.baseCircle;
+    border-color: $partiallyCorrectGuessColor;
+    background-color: $partiallyCorrectGuessColor;
+}
+
+div.correct-result {
+    @extend div.baseCircle;
+    border-color: $correctGuessColor;
+    background-color: $correctGuessColor;
 }
 
 div.piece1 {
@@ -32,15 +58,14 @@ div.piece1 {
 }
 
 div.piece2 {
-  width: 0; 
-  height: 0; 
-  border-left: $triangleWidth solid transparent;
-  border-right: $triangleWidth solid transparent;
-  
-  border-bottom: $triangleHeight solid $triangleColor;
+    width: 0;
+    height: 0;
+    border-left: $triangleWidth solid transparent;
+    border-right: $triangleWidth solid transparent;
+    border-bottom: $triangleHeight solid $triangleColor;
 }
 
-div.circle{
+div.circle {
     border-radius: $radius;
     height: $emptySize;
     width: $emptySize;

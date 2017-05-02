@@ -39,19 +39,37 @@
         </p>
     </div>
 
-    <div class="col-md-2">
-        <table>
-            <tbody data-bind="foreach: turns">
-                <tr data-bind="foreach: items, as: 'item'">
-                    <td>
-                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            <button onclick="makeGuess()">Make Guess</button>
-        </p>
+    <div class="col-md-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <table>
+                        <tbody data-bind="foreach: guesses">
+                            <tr data-bind="foreach: items, as: 'item'">
+                                <td>
+                                    <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <button onclick="makeGuess()">Make Guess</button>
+                    </p>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <table>
+                        <tbody data-bind="foreach: results">
+                            <tr data-bind="foreach: items, as: 'item'">
+                                <td>
+                                    <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @*</div>*@

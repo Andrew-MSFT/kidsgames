@@ -19,12 +19,13 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("id").split(':');
     var newVal = Math.floor(data[1]);
     var id = ev.target.id.split(':');
+    var purpose = Math.floor(id[0]);
 
-    if (id[0] === "board") {
+    if (purpose === PiecePurpose.Board) {
         currentGuessNum = Math.floor(id[1]);
-        viewModel.turns()[id[1]].items()[id[2]].value(newVal);
+        viewModel.guesses()[id[1]].items()[id[2]].value(newVal);
     }
-    else if (id[0] === "code") {
+    else if (purpose === PiecePurpose.Code) {
         viewModel.secretCode()[id[1]].value(newVal);
     }
 }
@@ -62,13 +63,15 @@ function getNumberOfGamePieces() {
 }
 
 function guessResult(data) {
-    var a = 0;
+    for (var i = 0; i < getNumberOfGamePieces(); i++) {
+        viewModel.results()[currentGuessNum].items()[i].value(data[i]);
+    }
 }
 
 function makeGuess() {
     var guessedPieces = new Array();
     for (var i = 0; i < getNumberOfGamePieces(); i++) {
-        guessedPieces.push(viewModel.turns()[currentGuessNum].items()[i].value());
+        guessedPieces.push(viewModel.guesses()[currentGuessNum].items()[i].value());
     }
 
     var postData = JSON.stringify({
