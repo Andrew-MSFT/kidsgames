@@ -1,6 +1,10 @@
 ﻿var sessionInfo;
 var currentGuessNum;
 
+function config() {
+    this.difficultyLevel = "Beginner";
+}
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -33,16 +37,11 @@ function setCode() {
     var secretCode = new Array();
     for (var i = 0; i < viewModel.secretCode().length; i++) {
         var val = viewModel.secretCode()[i].value();
-        if (val === 0) {
-            secretCode.push("Empty");
-        }
-        else {
-            secretCode.push("Piece" + val);
-        }
+        secretCode.push(val);
     }
 
     var postData = JSON.stringify({
-        difficultyLevel: "Beginner",
+        difficultyLevel: config.difficultyLevel,
         code: secretCode,
         sessionInfo: sessionInfo
     });
@@ -62,6 +61,10 @@ function getNumberOfGamePieces() {
     return 3;
 }
 
+function guessResult(data) {
+    var a = 0;
+}
+
 function makeGuess() {
     var guessedPieces = new Array();
     for (var i = 0; i < getNumberOfGamePieces(); i++) {
@@ -77,7 +80,7 @@ function makeGuess() {
         type: "POST",
         url: "Home/MakeGuess",
         data: postData,
-        success: setCodeSuccess,
+        success: guessResult,
         dataType: "json",
         contentType: "application/json"
     });

@@ -58,7 +58,9 @@ namespace Mastermind.Web
 
         public JsonResult MakeGuess([FromBody] GuessContainer guess)
         {
-            var json = this.Json(guess.SessionInfo);
+            var game = m_games[guess.SessionInfo.SessionId];
+            var result = game.MakeGuess(guess.Guess);
+            var json = this.Json(result);
             return json;
         }
 

@@ -38,15 +38,15 @@ namespace MasterMind.Logic
             this.SecretCode = secretCode;
         }
 
-        public List<GuessResult> MakeGuess(GamePieces[] guess)
+        public List<GuessResult> MakeGuess(List<GamePieces> guess)
         {
             var result = new List<GuessResult>();
-            this.CodeBreakerGuesses.Add(guess);
+            this.CodeBreakerGuesses.Add(guess.ToArray());
 
-            for (int i = 0; i < guess.Length; i++)
+            for (int i = 0; i < guess.Count; i++)
             {
                 bool guessFound = false;
-                for (int x = 0; x < guess.Length; x++)
+                for (int x = 0; x < guess.Count; x++)
                 {
                     if (x == i && this.SecretCode[x] == guess[i])
                     {
