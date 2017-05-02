@@ -1,0 +1,33 @@
+﻿div.empty {
+  border-radius: 12px;
+  height: 20px;
+  width: 20px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 2px;
+  background-color: transparent; }
+
+div.piece1 {
+  height: 16px;
+  width: 16px;
+  border-style: solid;
+  border-color: blue;
+  border-width: 2px;
+  background-color: blue; }
+
+div.piece2 {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 18px solid black; }
+
+div.circle {
+  border-radius: 12px;
+  height: 20px;
+  width: 20px;
+  border-style: solid;
+  border-color: green;
+  border-width: 2px;
+  background-color: green; }
+

@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "packages": [
+    {
+      "id": "knockout@3.4.2",
+      "path": "wwwroot/js",
+      "files": [ "knockout-min.js" ]
+    },
+    {
+      "id": "twitter-bootstrap@4.0.0-alpha.6",
+      "path": "wwwroot"
+    },
+    {
+      "id": "jquery@3.2.1",
+      "path": "wwwroot/js/",
+      "files": ["jquery.min.js"]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,10 +43,12 @@ namespace MasterMind.Game
             {
                 this.GameTurns[i] = new GameTurn(this.NumberOfPieces);
             }
+            
         }
 
         private void setNumberOfPieces()
         {
+            var a = "Hello " + this.NumberOfPieces + "something";
             if (gameLevel == GameLevels.Beginner)
             {
                 this.NumberOfPieces = 3;
@@ -59,16 +62,4 @@ namespace MasterMind.Game
 
     public enum GamePieces { Empty, Piece1, Piece2, Piece3, Piece4}
     public enum GuessResult { Empty, Incorrect, CorrectButWrongLocation, Correct}
-
-    public class GameTurn
-    {
-        public GamePieces[] CodeBreakerGuesses { get; set; }
-        public GuessResult[] GuessResults { get; set; }
-
-        public GameTurn(int numPieces)
-        {
-            this.CodeBreakerGuesses = new GamePieces[numPieces];
-            this.GuessResults = new GuessResult[numPieces];
-        }
-    }
 }

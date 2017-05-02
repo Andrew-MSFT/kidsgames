@@ -1,0 +1,103 @@
+$radius: 12px;
+$emptySize: 20px;
+$emptyOutline: gray;
+$emptyFill: transparent;
+$emptyOutlineWidth: 2px;
+
+$squareSize: 16px;
+
+$triangleWidth: 12px;
+$triangleHeight: 18px;
+$triangleColor: black;
+
+$circlePieceColor: green;
+
+div.empty {
+    border-radius: $radius;
+    height: $emptySize;
+    width: $emptySize;
+    border-style: solid;
+    border-color: $emptyOutline;
+    border-width: $emptyOutlineWidth;
+    background-color: $emptyFill;
+}
+
+div.piece1 {
+    height: $squareSize;
+    width: $squareSize;
+    border-style: solid;
+    border-color: blue;
+    border-width: $emptyOutlineWidth;
+    background-color: blue;
+}
+
+div.piece2 {
+  width: 0; 
+  height: 0; 
+  border-left: $triangleWidth solid transparent;
+  border-right: $triangleWidth solid transparent;
+  
+  border-bottom: $triangleHeight solid $triangleColor;
+}
+
+div.circle{
+    border-radius: $radius;
+    height: $emptySize;
+    width: $emptySize;
+    border-style: solid;
+    border-color: $circlePieceColor;
+    border-width: $emptyOutlineWidth;
+    background-color: $circlePieceColor;
+}
+
+// $startHeight: 100px;
+
+// #star-five {
+//    margin: 50px 0;
+//    position: relative;
+//    display: block;
+//    color: red;
+//    width: 0px;
+//    height: 0px;
+//    border-right:  100px solid transparent;
+//    border-bottom: 70px  solid red;
+//    border-left:   100px solid transparent;
+//    -moz-transform:    rotate(35deg);
+//    -webkit-transform: rotate(35deg);
+//    -ms-transform:     rotate(35deg);
+//    -o-transform:      rotate(35deg);
+// }
+// #star-five:before {
+//    border-bottom: 80px solid red;
+//    border-left: 30px solid transparent;
+//    border-right: 30px solid transparent;
+//    position: absolute;
+//    height: 0;
+//    width: 0;
+//    top: -45px;
+//    left: -65px;
+//    display: block;
+//    content: '';
+//    -webkit-transform: rotate(-35deg);
+//    -moz-transform:    rotate(-35deg);
+//    -ms-transform:     rotate(-35deg);
+//    -o-transform:      rotate(-35deg);
+// }
+
+// #star-five:after {
+//    position: absolute;
+//    display: block;
+//    color: red;
+//    top: 3px;
+//    left: -105px;
+//    width: 0px;
+//    height: 0px;
+//    border-right: 100px solid transparent;
+//    border-bottom: 70px solid red;
+//    border-left: 100px solid transparent;
+//    -webkit-transform: rotate(-70deg);
+//    -moz-transform:    rotate(-70deg);
+//    -ms-transform:     rotate(-70deg);
+//    -o-transform:      rotate(-70deg);
+//    content: '';
+// }

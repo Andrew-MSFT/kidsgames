@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Mastermind";
+    ViewData["Description"] = "The home page of my website";
+}
+
+<link rel="stylesheet" href="~/css/styles.css" />
+@*<link rel="stylesheet" href="~/css/bootstrap.css" />*@
+<link rel="stylesheet" href="~/css/bootstrap-grid.css" />
+<script type='text/javascript' src='~/js/knockout-min.js'></script>
+
+@*<div class="container">*@
+<div>Role: <span data-bind="text: playerRole"></span></div>
+
+<div class="row">
+    <div class="col-md-2">
+        <table>
+            <tbody>
+                <tr data-bind="foreach: piecePalette">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id" ondragstart="drag(event)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <table>
+                <tbody>
+                    <tr data-bind="foreach: secretCode">
+                        <td>
+                            <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            <button onclick="setCode()">Set Code</button>
+        </p>
+    </div>
+
+    <div class="col-md-2">
+        <table>
+            <tbody data-bind="foreach: turns">
+                <tr data-bind="foreach: items, as: 'item'">
+                    <td>
+                        <div data-bind="css: displayedPiece, id: id" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@*</div>*@
+
+@section Scripts {
+    @*Insert any script tags for this page here*@
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mm-viewmodel.js"></script>
+    <script type="text/javascript" src="~/js/mastermind.js"></script>
+
+}
