@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Mastermind";
     ViewData["Description"] = "The home page of my website";
 }
 
@@ -9,6 +9,8 @@
 <script type='text/javascript' src='~/js/knockout-min.js'></script>
 
 @*<div class="container">*@
+<div>Role: <span data-bind="text: playerRole"></span></div>
+
 <div class="row">
     <div class="col-md-2">
         <table>
@@ -54,6 +56,7 @@
     @*Insert any script tags for this page here*@
     <script type="text/javascript" src="~/js/jquery.min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mm-viewmodel.js"></script>
     <script type="text/javascript" src="~/js/mastermind.js"></script>
 
 }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MasterMind.Logic
 {
+    public enum GamePieces { Empty, Piece1, Piece2, Piece3, Piece4 }
+    public enum GuessResult { Empty, Incorrect, CorrectButWrongLocation, Correct }
+    public enum PlayerRole { CodeSetter, CodeBreaker}
+
     public class GameBoard
     {
         private DifficultyLevels gameLevel;
@@ -68,9 +72,6 @@ namespace MasterMind.Logic
         }
 
     }
-
-    public enum GamePieces { Empty, Piece1, Piece2, Piece3, Piece4 }
-    public enum GuessResult { Empty, Incorrect, CorrectButWrongLocation, Correct }
 
     public class GameTurn
     {
