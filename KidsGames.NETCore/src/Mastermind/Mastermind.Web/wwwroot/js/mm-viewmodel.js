@@ -93,6 +93,7 @@ function AppViewModel() {
 
     this.codeSetMessage = ko.observable("");
     this.gameInitialized = ko.observable(false);
+    this.isCodeSet = ko.observable(false);
 
     this.isCodeCreator = ko.computed(function () {
         if (this.role() === 0 && this.gameInitialized()) {
