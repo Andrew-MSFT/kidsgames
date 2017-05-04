@@ -53,6 +53,7 @@ function setCode() {
         contentType: "application/json",
         success: function (data) {
             viewModel.codeSetMessage("Code successfully set");
+            viewModel.isCodeSet(true);
         }
     });
 }
