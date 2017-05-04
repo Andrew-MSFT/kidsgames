@@ -83,7 +83,7 @@ namespace StarterMvcTemplate
                     {
                         WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
                         var controller = new HomeController();
-                        await controller.Echo(context, webSocket);
+                        await controller.LiveConnection(context, webSocket);
                     }
                     else
                     {

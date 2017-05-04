@@ -89,7 +89,7 @@ namespace Mastermind.Web
             return json;
         }
 
-        public async Task Echo(HttpContext context, WebSocket webSocket)
+        public async Task LiveConnection(HttpContext context, WebSocket webSocket)
         {
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);

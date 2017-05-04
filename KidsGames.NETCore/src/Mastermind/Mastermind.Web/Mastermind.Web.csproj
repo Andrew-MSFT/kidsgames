@@ -7,6 +7,7 @@
 
     <ItemGroup>
       <Content Include="wwwroot\js\mastermind.js" />
+      <Content Include="wwwroot\js\mm-liveupdates.js" />
       <Content Include="wwwroot\js\mm-viewmodel.js" />
     </ItemGroup>
 

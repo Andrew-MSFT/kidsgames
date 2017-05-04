@@ -115,6 +115,7 @@ function createNewGame() {
             viewModel.games.push(new GameVMItem(data.id, "Game " + viewModel.games.length));
             viewModel.gameInitialized(true);
             viewModel.role(data.role);
+            connectToWS();
         }
     });
 }
