@@ -70,7 +70,7 @@ namespace MasterMind.Tests
             var gb = new GameBoard(DifficultyLevels.Beginner);
             gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new List<GamePieces> { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
-            foreach (var r in result)
+            foreach (var r in result.GuessResults)
             {
                 Assert.Equal(GuessResult.Correct, r);
             }
@@ -82,7 +82,7 @@ namespace MasterMind.Tests
             var gb = new GameBoard(DifficultyLevels.Beginner);
             gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new List<GamePieces> { GamePieces.Piece2, GamePieces.Piece3, GamePieces.Piece1 });
-            foreach (var r in result)
+            foreach (var r in result.GuessResults)
             {
                 Assert.Equal(GuessResult.CorrectButWrongLocation, r);
             }
@@ -94,7 +94,7 @@ namespace MasterMind.Tests
             var gb = new GameBoard(DifficultyLevels.Beginner);
             gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new List<GamePieces> { GamePieces.Piece4, GamePieces.Piece4, GamePieces.Piece4 });
-            foreach (var r in result)
+            foreach (var r in result.GuessResults)
             {
                 Assert.Equal(GuessResult.Incorrect, r);
             }
@@ -107,9 +107,9 @@ namespace MasterMind.Tests
             gb.SetCode(new List<GamePieces>() { GamePieces.Piece1, GamePieces.Piece2, GamePieces.Piece3 });
             var result = gb.MakeGuess(new List<GamePieces> { GamePieces.Piece1, GamePieces.Piece3, GamePieces.Piece4 });
 
-            Assert.Equal(GuessResult.Correct, result[0]);
-            Assert.Equal(GuessResult.CorrectButWrongLocation, result[1]);
-            Assert.Equal(GuessResult.Incorrect, result[2]);
+            Assert.Equal(GuessResult.Correct, result.GuessResults[0]);
+            Assert.Equal(GuessResult.CorrectButWrongLocation, result.GuessResults[1]);
+            Assert.Equal(GuessResult.Incorrect, result.GuessResults[2]);
 
         }
     }

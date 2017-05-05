@@ -40,8 +40,9 @@ namespace MasterMind.Logic
             this.SecretCode = secretCode;
         }
 
-        public List<GuessResult> MakeGuess(List<GamePieces> guess)
+        public GameTurn MakeGuess(List<GamePieces> guess)
         {
+            GameTurn turn;
             var result = new List<GuessResult>();
             this.CodeBreakerGuesses.Add(guess.ToArray());
 
@@ -69,21 +70,24 @@ namespace MasterMind.Logic
                 }
             }
 
+            turn = new GameTurn(m_currentTurn, guess, result);
             m_currentTurn++;
-            return result;
+            return turn;
         }
 
     }
 
     public class GameTurn
     {
-        public GamePieces[] CodeBreakerGuesses { get; set; }
-        public GuessResult[] GuessResults { get; set; }
+        public int TurnNumber { get; set; }
+        public List<GamePieces> Guesses { get; set; }
+        public List<GuessResult> GuessResults { get; set; }
 
-        public GameTurn(int numPieces)
+        public GameTurn(int number, List<GamePieces> guess, List<GuessResult> result)
         {
-            this.CodeBreakerGuesses = new GamePieces[numPieces];
-            this.GuessResults = new GuessResult[numPieces];
+            this.TurnNumber = number;
+            this.Guesses = guess;
+            this.GuessResults = result;
         }
     }
 }

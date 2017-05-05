@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Net.WebSockets;
 using System.Threading;
+using System.Text;
+using System.Collections.Concurrent;
 
 namespace Mastermind.Web
 {
@@ -23,6 +25,7 @@ namespace Mastermind.Web
         //static string m_pendingGame = null;
         static Dictionary<Guid, GameBoard> m_openGames = new Dictionary<Guid, GameBoard>() { /*{ Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner)}, { Guid.NewGuid(), new GameBoard(DifficultyLevels.Beginner) }*/ };
         static Dictionary<Guid, GameBoard> m_existingGames = new Dictionary<Guid, GameBoard>();
+        static Dictionary<Guid, QueueContainer> m_connections = new Dictionary<Guid, QueueContainer>();
 
         public IActionResult Index()
         {
@@ -85,7 +88,12 @@ namespace Mastermind.Web
         {
             var game = m_existingGames[guess.SessionInfo.SessionId];
             var result = game.MakeGuess(guess.Guess);
-            var json = this.Json(result);
+
+            var queue = m_connections[guess.SessionInfo.SessionId];
+            queue.Turn.TryAdd(result);
+            queue.WaitHandle.Set();
+
+            var json = this.Json(result.GuessResults);
             return json;
         }
 
@@ -93,15 +101,30 @@ namespace Mastermind.Web
         {
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+            var message = Encoding.ASCII.GetString(buffer, 0, result.Count);
+            var session = JsonConvert.DeserializeObject<GameSession>(message);
+            var collectionQueue = new QueueContainer();
+            m_connections.Add(session.SessionId, collectionQueue);
+
             while (!result.CloseStatus.HasValue)
             {
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-
-                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                if (collectionQueue.WaitHandle.WaitOne() && collectionQueue.Turn.TryTake(out GameTurn turn))
+                {
+                    var turnJson = JsonConvert.SerializeObject(turn);
+                    buffer = Encoding.ASCII.GetBytes(turnJson);
+                    await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, buffer.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
+                }
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
         }
 
+    }
+
+    public class QueueContainer
+    {
+        public AutoResetEvent WaitHandle { get; set; } = new AutoResetEvent(false);
+        public BlockingCollection<GameTurn> Turn { get; set; } = new BlockingCollection<GameTurn>();
     }
 
     public class SetCodeContainer

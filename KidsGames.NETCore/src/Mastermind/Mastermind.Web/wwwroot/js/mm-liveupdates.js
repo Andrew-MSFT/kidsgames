@@ -5,7 +5,12 @@ var connectionUrl = scheme + "://" + document.location.hostname + port + "/ws";
 var stateLabel = document.getElementById("stateLabel");
 
 function onUpdateMessage(event) {
-    stateLabel.innerHTML = event.data;
+    var result = JSON.parse(event.data);
+    for (var i = 0; i < result.Guesses.length; i++) {
+        viewModel.guesses()[result.TurnNumber].items()[i].value(result.Guesses[i]);
+        //viewModel.guesses()[id[1]].items()[id[2]].value(newVal);
+    }
+    
 }
 
 function connectToWS() {
@@ -16,6 +21,9 @@ function connectToWS() {
     socket.onerror = function() {
         stateLabel.innerHTML = 'web socket error';
     };
+    socket.onopen = function () {
+        socket.send(JSON.stringify(sessionInfo));
+    }
 
     socket.onmessage = onUpdateMessage;
 }
