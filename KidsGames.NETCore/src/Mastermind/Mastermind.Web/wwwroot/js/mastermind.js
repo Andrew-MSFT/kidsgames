@@ -31,6 +31,34 @@ function drop(ev) {
     }
 }
 
+function codeBreakerMoved(event) {
+    var result = JSON.parse(event.data);
+    for (var i = 0; i < result.Guesses.length; i++) {
+        viewModel.guesses()[result.TurnNumber].items()[i].value(result.Guesses[i]);
+        viewModel.results()[result.TurnNumber].items()[i].value(result.GuessResults[i]);
+    }
+}
+
+function connectToWS() {
+    var scheme = document.location.protocol == "https:" ? "wss" : "ws";
+    var port = document.location.port ? (":" + document.location.port) : "";
+    var connectionUrl = scheme + "://" + document.location.hostname + port + "/ws";
+    var stateLabel = document.getElementById("stateLabel");
+    var socket = new WebSocket(connectionUrl);
+
+    socket.onclose = function (event) {
+        stateLabel.innerHTML = 'web socket closed';
+    };
+    socket.onerror = function () {
+        stateLabel.innerHTML = 'web socket error';
+    };
+    socket.onopen = function () {
+        socket.send(JSON.stringify(sessionInfo));
+    }
+
+    socket.onmessage = codeBreakerMoved;
+}
+
 function setCode() {
     var secretCode = new Array();
     for (var i = 0; i < viewModel.secretCode().length; i++) {
