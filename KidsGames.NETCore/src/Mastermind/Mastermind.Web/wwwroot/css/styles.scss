@@ -1,13 +1,14 @@
-$radius: 12px;
-$emptySize: 20px;
+$radius: 20px;
+$emptyOutlineWidth: 2px;
+$emptySize: $radius * 2 - $emptyOutlineWidth * 2; //20px;
 $emptyOutline: gray;
 $emptyFill: transparent;
-$emptyOutlineWidth: 2px;
+$dragOverFill: gray;
 
-$squareSize: 16px;
+$squareSize: $emptySize;
 
-$triangleWidth: 11px;
-$triangleHeight: 16px;
+$triangleWidth: $radius - 2;
+$triangleHeight: $squareSize;
 $triangleColor: green;
 
 $circlePieceColor: black;
@@ -28,6 +29,10 @@ div.empty {
     @extend div.baseCircle;
     border-color: $emptyOutline;
     background-color: $emptyFill;
+}
+
+div.dragOver{
+    background-color: $dragOverFill;
 }
 
 div.incorrect-result {
@@ -51,9 +56,6 @@ div.correct-result {
 div.piece1 {
     height: $squareSize;
     width: $squareSize;
-    border-style: solid;
-    border-color: blue;
-    border-width: $emptyOutlineWidth;
     background-color: blue;
 }
 
@@ -66,9 +68,7 @@ div.piece2 {
 }
 
 div.circle {
-    border-radius: $radius;
-    height: $emptySize;
-    width: $emptySize;
+    @extend div.baseCircle;
     border-style: solid;
     border-color: $circlePieceColor;
     border-width: $emptyOutlineWidth;

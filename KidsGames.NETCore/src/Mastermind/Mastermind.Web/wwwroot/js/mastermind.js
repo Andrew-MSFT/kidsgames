@@ -1,5 +1,7 @@
 ﻿var sessionInfo = null;
 var currentGuessNum;
+var hoverBackground = "gray";
+var normalBackground = "transparent";
 
 var config = {
     difficultyLevel: "Beginner",
@@ -8,7 +10,13 @@ var config = {
 
 
 function allowDrop(ev) {
+    ev.target.classList.add("dragOver");
     ev.preventDefault();
+}
+
+function dragLeave(ev) {
+    ev.target.classList.remove("dragOver");
+    var target = ev.target;
 }
 
 function drag(ev) {
@@ -21,6 +29,8 @@ function drop(ev) {
     var newVal = Math.floor(data[1]);
     var id = ev.target.id.split(':');
     var purpose = Math.floor(id[0]);
+
+    ev.target.classList.remove("dragOver");
 
     if (purpose === PiecePurpose.Board) {
         currentGuessNum = Math.floor(id[1]);

@@ -60,12 +60,6 @@ namespace StarterMvcTemplate
                 app.UseBrowserLink();
             }
 
-            var webSocketOptions = new WebSocketOptions()
-            {
-                KeepAliveInterval = TimeSpan.FromSeconds(120)
-            };
-
-            app.UseWebSockets(webSocketOptions);
             app.UseFileServer();
 
             app.UseMvc(routes =>
@@ -75,6 +69,12 @@ namespace StarterMvcTemplate
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120)
+            };
+
+            app.UseWebSockets(webSocketOptions);
             app.Use(async (context, next) =>
             {
                 if (context.Request.Path == "/ws")
