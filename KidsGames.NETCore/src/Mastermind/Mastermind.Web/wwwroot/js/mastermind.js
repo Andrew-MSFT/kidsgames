@@ -16,7 +16,6 @@ function allowDrop(ev) {
 
 function dragLeave(ev) {
     ev.target.classList.remove("dragOver");
-    var target = ev.target;
 }
 
 function drag(ev) {
