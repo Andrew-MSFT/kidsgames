@@ -2,7 +2,7 @@
 var currentGuessNum;
 
 var config = {
-    difficultyLevel: "Beginner",
+    difficultyLevel: 0, //0-Beginner, 1-Advanced
     NumberOfGamePieces: 3
 };
 
