@@ -1,7 +1,5 @@
 ﻿var sessionInfo = null;
 var currentGuessNum;
-var hoverBackground = "gray";
-var normalBackground = "transparent";
 
 var config = {
     difficultyLevel: "Beginner",
