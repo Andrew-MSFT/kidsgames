@@ -5,11 +5,10 @@
         <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     </PropertyGroup>
 
-    <ItemGroup>
+    <!--<ItemGroup>
       <Content Include="wwwroot\js\mastermind.js" />
-      <Content Include="wwwroot\js\mm-liveupdates.js" />
       <Content Include="wwwroot\js\mm-viewmodel.js" />
-    </ItemGroup>
+    </ItemGroup>-->
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
